@@ -19,6 +19,16 @@ android {
     }
 }
 
+repositories {
+    mavenCentral()
+
+    maven {
+        url "http://dl.bintray.com/journeyapps/maven"
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.google.zxing:core:3.2.0'
+    compile 'com.journeyapps:zxing-android-embedded:3.0.0-beta2@aar'
 }

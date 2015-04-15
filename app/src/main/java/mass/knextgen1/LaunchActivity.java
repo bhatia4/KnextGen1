@@ -1,9 +1,15 @@
 package mass.knextgen1;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 //sample code
 public class LaunchActivity extends Activity {
@@ -32,5 +38,17 @@ public class LaunchActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void clickMeClicked(View view) {
+        new IntentIntegrator(this).initiateScan();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (scanResult != null) {
+            TextView txtResult = (TextView) this.findViewById(R.id.txt_result);
+            txtResult.setText(scanResult.getContents());
+        }
     }
 }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">KnextGen1</string>
+    <string name="app_name">Next Gen Shopping App</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="click_me">Click Me!</string>
 
 </resources>
