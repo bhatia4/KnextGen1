@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="url_1">https://api.mongolab.com/api/1/databases/meds_db/collections/meds_table_</string>
+    <string name="url_3B">apiKey=VxUDzy-whQi2yALDCd4PXD9WvNWgOLga</string>
+</resources>

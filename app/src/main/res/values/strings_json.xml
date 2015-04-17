@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="product_company">product_company</string>
+    <string name="product_name">product_name</string>
+    <string name="ingredients">ingredients</string>
+    <string name="warnings">warnings</string>
+    <string name="directions">directions</string>
+    <string name="other_info">other_info</string>
+</resources>
