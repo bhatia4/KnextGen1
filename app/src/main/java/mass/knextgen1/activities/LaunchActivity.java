@@ -23,7 +23,6 @@ import org.json.JSONObject;
 import mass.knextgen1.R;
 import mass.knextgen1.util.GlobalPreferenceManager;
 import mass.knextgen1.util.JSONServlet;
-import mass.knextgen1.util.TranslatorUtility;
 
 //sample code
 public class LaunchActivity extends Activity implements
@@ -42,6 +41,7 @@ public class LaunchActivity extends Activity implements
     };
 
     private final int UPDATE_RESULT = 0;
+    private static String lastScanResult = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,10 @@ public class LaunchActivity extends Activity implements
 
         int languageIndex = GlobalPreferenceManager.getGlobalPreferenceInt(this, getString(R.string.language_choice_key), 0);
         spnLanguageChoice.setSelection(languageIndex);
+
+        if (lastScanResult!=null) {
+            JSONServlet.runTranslationServlet(this, this, getResources().getStringArray(R.array.languageSuffix)[languageIndex], lastScanResult);
+        }
     }
 
     @Override
@@ -83,14 +87,15 @@ public class LaunchActivity extends Activity implements
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanResult != null && scanResult.getContents() != null) {
+            lastScanResult = scanResult.getContents();
             int languageIndex = GlobalPreferenceManager.getGlobalPreferenceInt(this, getString(R.string.language_choice_key), 0);
 
-            JSONServlet.runTranslationServlet(this, this, TranslatorUtility.getLanguageSuffix(languageIndex), scanResult.getContents());
-        } else {
+            JSONServlet.runTranslationServlet(this, this, getResources().getStringArray(R.array.languageSuffix)[languageIndex], lastScanResult);
+        } /*else {
             int languageIndex = GlobalPreferenceManager.getGlobalPreferenceInt(this, getString(R.string.language_choice_key), 0);
 
-            JSONServlet.runTranslationServlet(this, this, TranslatorUtility.getLanguageSuffix(languageIndex), "681131183925");
-        }
+            JSONServlet.runTranslationServlet(this, this, getResources().getStringArray(R.array.languageSuffix)[languageIndex], "681131183925");
+        }*/
     }
 
     @Override
@@ -122,6 +127,11 @@ public class LaunchActivity extends Activity implements
         if (parent.getId() == R.id.spn_languageChoice) {
             Spinner spnLanguageChoice = (Spinner) parent;
             setLanguage(spnLanguageChoice.getSelectedItemPosition());
+
+            if (lastScanResult!=null) {
+                int languageIndex = GlobalPreferenceManager.getGlobalPreferenceInt(this, getString(R.string.language_choice_key), 0);
+                JSONServlet.runTranslationServlet(this, this, getResources().getStringArray(R.array.languageSuffix)[languageIndex], lastScanResult);
+            }
         }
     }
     @Override
